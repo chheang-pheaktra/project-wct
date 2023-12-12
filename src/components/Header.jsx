@@ -23,7 +23,7 @@ const Header = () => {
                     <Link to="/About" class="px-4">About Us</Link>
                 </div>
                 <div class="hidden md:block">
-                    <Link to="/" class="px-4" href="#">Sign Up</Link>
+                    <Link to="/signup" class="px-4" href="#">Sign Up</Link>
                     <Link to="/login" class="px-4" href="login.jsx">Login</Link>
                 </div>
             </div>
