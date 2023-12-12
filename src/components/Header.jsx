@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 const Header = () => {
     return (
         <header className="sticky top-0 bg-white shadow">
@@ -15,16 +15,16 @@ const Header = () => {
                                 d="M36,22l-1-6l-18,7l17,7l-2-5l-8-2h12V22z M27.661,21l5.771-2.244L33.806,21H27.661z">
                             </path>
                         </svg>
-                    </div>Lander
+                    </div>RESCAM
                 </div>
                 <div class="flex mt-4 sm:mt-0">
-                    <a class="px-4" href="#features">Home</a>
-                    <a class="px-4" href="#services">Services</a>
-                    <a class="px-4" href="#testimonials">About Us</a>
+                    <Link to="/" class="px-4">Home</Link>
+                    <Link to="/Service" class="px-4" >Services</Link>
+                    <Link to="/About" class="px-4">About Us</Link>
                 </div>
                 <div class="hidden md:block">
-                    <a class="px-4" href="#">Sign Up</a>
-                    <a class="px-4" href="login.jsx">Login</a>
+                    <Link to="/" class="px-4" href="#">Sign Up</Link>
+                    <Link to="/login" class="px-4" href="login.jsx">Login</Link>
                 </div>
             </div>
         </header>
