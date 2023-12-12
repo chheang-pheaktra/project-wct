@@ -6,6 +6,7 @@ import Login from "./page/login";
 import Service from "./page/Service";
 import About from "./page/About";
 import Signup from "./page/signup";
+import Create from "./page/Create";
 export default function App() {
   return (
     <div>
@@ -13,10 +14,11 @@ export default function App() {
         <Header/>
         <Routes>
           <Route path="/" exact Component={Home}/>
-          <Route path="/" exact Component={Service}/>
+          <Route path="/Create" exact Component={Create}/>
+          <Route path="/service" exact Component={Service}/>
           <Route path="/About" exact Component={About}/>
           <Route path="/login" exact Component={Login}/>
-          <Route path="/login" exact Component={Signup}/>
+          <Route path="/signup" exact Component={Signup}/>
         </Routes>
         <Footer/>
       </Router>

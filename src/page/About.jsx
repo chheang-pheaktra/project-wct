@@ -28,13 +28,13 @@ const About = () => {
         <div className="about team mt-32">
             <h1 className="text-3xl font-semibold text-center overflow-hidden">Meet Our Team</h1>
                 <div className="flex flex-wrap justify-center gap-4 mt-10">
-                    <div class="w-96 px-6 py-6  text-center bg-gray-800 rounded-lg lg:mt-0 xl:px-10">
+                    <div class="w-96 px-6 py-6  text-center rounded-lg lg:mt-0 xl:px-10 shadow-md">
                         <div class="space-y-4 xl:space-y-6">
                             <img class="mx-auto rounded-full h-36 w-36" src={profile} alt="author avatar" />
                             <div class="space-y-2">
                                 <div class="flex justify-center items-center flex-col space-y-3 text-lg font-medium leading-6">
                                     <h3 class="text-white">Chheang Pheaktra</h3>
-                                    <p class="text-indigo-300">Student of Information Technology Engineering</p>
+                                    <p class="text-indigo-600">Student of Information Technology Engineering</p>
                                     <div class="flex justify-center mt-5 space-x-5"><a href="#" target="_blank" rel="noopener noreferrer"
                                             class="inline-block text-gray-400"><span class="sr-only">Twitter</span><svg
                                                 stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512"
@@ -66,13 +66,13 @@ const About = () => {
                             </div>
                         </div>
                     </div>
-                    <div class="w-96 px-6 py-6  text-center bg-gray-800 rounded-lg lg:mt-0 xl:px-10">
+                    <div class="w-96 px-6 py-6  text-centerrounded-lg lg:mt-0 xl:px-10 shadow-md">
                         <div class="space-y-4 xl:space-y-6">
                             <img class="mx-auto rounded-full h-36 w-36" src={profile3} alt="author avatar" />
                             <div class="space-y-2">
                                 <div class="flex justify-center items-center flex-col space-y-3 text-lg font-medium leading-6">
                                     <h3 class="text-white">Chhorn Sreyneat</h3>
-                                    <p class="text-indigo-300">Student of ITE</p>
+                                    <p class="text-indigo-600">Student of ITE</p>
                                     <div class="flex justify-center mt-5 space-x-5"><a href="#" target="_blank" rel="noopener noreferrer"
                                             class="inline-block text-gray-400"><span class="sr-only">Twitter</span><svg
                                                 stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512"
@@ -104,13 +104,13 @@ const About = () => {
                             </div>
                         </div>
                     </div>
-                    <div class="w-96 px-6 py-6  text-center bg-gray-800 rounded-lg lg:mt-0 xl:px-10">
+                    <div class="w-96 px-6 py-6  text-center rounded-lg lg:mt-0 xl:px-10 shadow-md">
                         <div class="space-y-4 xl:space-y-6">
                             <img class="mx-auto rounded-full h-36 w-36" src={profile2   } alt="author avatar" />
                             <div class="space-y-2">
                                 <div class="flex justify-center items-center flex-col space-y-3 text-lg font-medium leading-6">
                                     <h3 class="text-white">Thorn Sreyros</h3>
-                                    <p class="text-indigo-300">Student of ITE</p>
+                                    <p class="text-indigo-600">Student of ITE</p>
                                     <div class="flex justify-center mt-5 space-x-5"><a href="#" target="_blank" rel="noopener noreferrer"
                                             class="inline-block text-gray-400"><span class="sr-only">Twitter</span><svg
                                                 stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512"
@@ -147,5 +147,4 @@ const About = () => {
         </section>
     );
 }
-
 export default About;

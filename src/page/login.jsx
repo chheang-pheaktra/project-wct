@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 const Login = () => {
     return (
     <div class="py-16">
@@ -54,7 +55,7 @@ const Login = () => {
             </div>
             <div class="mt-4 flex items-center justify-between">
                 <span class="border-b w-1/5 md:w-1/4"></span>
-                <a href="" class="text-xs text-gray-500 uppercase">or sign up</a>
+                <Link to="/signup" class="text-xs text-gray-500 uppercase">or sign up</Link>
                 <span class="border-b w-1/5 md:w-1/4"></span>
             </div>
         </div>
