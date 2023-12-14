@@ -3,20 +3,13 @@
     {
       "id": 1,
       "username": "Pheaktra@123",
-      "email": "gg@gmail.com",
-      "password": "1234"
-    },
-    {
-      "id": 2,
-      "username": "p@g",
-      "email": "pg@gmail.com",
+      "email": "pheaktra@gmail.com",
       "password": "12345"
     },
     {
-      "id": 3,
-      "username": "neat@123",
-      "email": "neat@gmail.com",
-      "password": "12345"
+      "id": "Pheaktra@12",
+      "email": "Pheak@gmail.com",
+      "password": "123"
     }
   ]
 }

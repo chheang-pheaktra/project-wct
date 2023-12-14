@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Login from './login';
 import { toast } from 'react-toastify';
 
 const Signup = () => {
     const [id,idChange]=useState("");
-    const [username,usernameChange]=useState("");
     const [email,emailChange]=useState("");
     const [password,passwordChange]=useState("");
     const nav=useNavigate();
 
     const handlesubmit=(e)=>{
         e.preventDefault();
-        let obj={id,username,email,password}
+        let obj={id,email,password}
         
         fetch("http://localhost:3000/user",{
             method:"POST",
@@ -65,7 +63,7 @@ const Signup = () => {
                <form action="" onSubmit={handlesubmit}>
                <div class="mt-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2">Username</label>
-                    <input value={username} onChange={e=>usernameChange(e.target.value)} class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" type="email" />
+                    <input value={id} onChange={e=>idChange(e.target.value)} class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" type="email" />
                 </div>
                 <div class="mt-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2">Email Address</label>
