@@ -1,7 +1,29 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Login from './login';
+import { toast } from 'react-toastify';
+
 const Signup = () => {
+    const [id,idChange]=useState("");
+    const [username,usernameChange]=useState("");
+    const [email,emailChange]=useState("");
+    const [password,passwordChange]=useState("");
+    const nav=useNavigate();
+
+    const handlesubmit=(e)=>{
+        e.preventDefault();
+        let obj={id,username,email,password}
+        
+        fetch("http://localhost:3000/user",{
+            method:"POST",
+            headers:{'content-type':'application/json'},
+            body:JSON.stringify(obj)
+        }).then((res)=>{
+            nav('/Create')
+        }).catch((error)=>{
+            toast.error('sign up not successfully'+error);
+        })
+    }
     return (
         <div class="py-16">
         <div class="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl">
@@ -40,19 +62,20 @@ const Signup = () => {
                     <a href="#" class="text-xs text-center text-gray-500 uppercase">or login with email</a>
                     <span class="border-b w-1/5 lg:w-1/4"></span>
                 </div>
-                <div class="mt-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2">User name</label>
-                    <input class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" type="email" />
+               <form action="" onSubmit={handlesubmit}>
+               <div class="mt-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Username</label>
+                    <input value={username} onChange={e=>usernameChange(e.target.value)} class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" type="email" />
                 </div>
                 <div class="mt-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2">Email Address</label>
-                    <input class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" type="email" />
+                    <input value={email} onChange={e=>emailChange(e.target.value)} class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" type="email" />
                 </div>
                 <div class="mt-4">
                     <div class="flex justify-between">
                         <label class="block text-gray-700 text-sm font-bold mb-2">Password</label>
                     </div>
-                    <input class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" type="password" />
+                    <input value={password} onChange={e=>passwordChange(e.target.value)} class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" type="password" />
                 </div>
                 <div class="mt-8">
                     <button class="bg-gray-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-gray-600">Sign up</button>
@@ -62,6 +85,7 @@ const Signup = () => {
                     <Link to="/login" class="text-xs text-gray-500 uppercase">or login</Link>
                     <span class="border-b w-1/5 md:w-1/4"></span>
                 </div>
+               </form>
             </div>
         </div>
     </div>

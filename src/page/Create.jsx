@@ -1,106 +1,31 @@
 import React from 'react';
 const Create = () => {
     return (
-            <div class="h-full">
-                <div class="mx-auto">
-                    <div class="flex justify-center px-6 py-12">
-                        <div class="w-full xl:w-3/4 lg:w-11/12 flex">
-                            <div class="w-full h-auto bg-gray-400 dark:bg-gray-200 hidden lg:block lg:w-5/12 bg-cover rounded-l-lg"
-                                style={{
-                                    backgroundImage: `url("")` 
-                                }
-                                }>
+    <div class="h-full">
+                <section class="flex flex-col items-center pt-6">
+                    <div
+                        class="w-full bg-white rounded-lg shadow  md:mt-0 sm:max-w-md xl:p-0  ">
+                        <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                        <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">Create an
+                            account
+                        </h1>
+                        <form class="space-y-4 md:space-y-6" method="POST">
+                            <div>
+                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 ">Name Res</label>
+                            <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 " placeholder="Emelia Erickson" required="" />
                             </div>
-                            <div class="w-full lg:w-7/12 bg-white dark:bg-gray-200 p-5 rounded-lg lg:rounded-l-none">
-                                <h3 class="py-4 text-2xl text-center text-gray-800 dark:text-gray-900">Create an Account!</h3>
-                                <form class="px-8 pt-6 pb-8 mb-4 bg-white rounded">
-                                    <div class="mb-4 md:flex md:justify-between">
-                                        <div class="mb-4 md:mr-2 md:mb-0">
-                                            <label class="block mb-2 text-sm font-bold text-gray-200 dark:text-white" for="firstName">
-                                                First Name
-                                            </label>
-                                            <input
-                                                class="w-full px-3 py-2 text-sm leading-tight text-gray-900 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                                                id="firstName"
-                                                type="text"
-                                                placeholder="First Name"
-                                            />
-                                        </div>
-                                        <div class="md:ml-2">
-                                            <label class="block mb-2 text-sm font-bold text-gray-700 dark:text-white" for="lastName">
-                                                Last Name
-                                            </label>
-                                            <input
-                                                class="w-full px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                                                id="lastName"
-                                                type="text"
-                                                placeholder="Last Name"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div class="mb-4">
-                                        <label class="block mb-2 text-sm font-bold text-gray-700 dark:text-white" for="email">
-                                            Email
-                                        </label>
-                                        <input
-                                            class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                                            id="email"
-                                            type="email"
-                                            placeholder="Email"
-                                        />
-                                    </div>
-                                    <div class="mb-4 md:flex md:justify-between">
-                                        <div class="mb-4 md:mr-2 md:mb-0">
-                                            <label class="block mb-2 text-sm font-bold text-gray-700 dark:text-white" for="password">
-                                                Password
-                                            </label>
-                                            <input
-                                                class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 dark:text-white border border-red-500 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                                                id="password"
-                                                type="password"
-                                                placeholder="******************"
-                                            />
-                                            <p class="text-xs italic text-red-500">Please choose a password.</p>
-                                        </div>
-                                        <div class="md:ml-2">
-                                            <label class="block mb-2 text-sm font-bold text-gray-700 dark:text-white" for="c_password">
-                                                Confirm Password
-                                            </label>
-                                            <input
-                                                class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                                                id="c_password"
-                                                type="password"
-                                                placeholder="******************"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div class="mb-6 text-center">
-                                        <button
-                                            class="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 dark:bg-blue-700 dark:text-white dark:hover:bg-blue-900 focus:outline-none focus:shadow-outline"
-                                            type="button"
-                                        >
-                                            Register Account
-                                        </button>
-                                    </div>
-                                    <hr class="mb-6 border-t" />
-                                    <div class="text-center">
-                                        <a class="inline-block text-sm text-blue-500 dark:text-blue-500 align-baseline hover:text-blue-800"
-                                            href="#">
-                                            Forgot Password?
-                                        </a>
-                                    </div>
-                                    <div class="text-center">
-                                        <a class="inline-block text-sm text-blue-500 dark:text-blue-500 align-baseline hover:text-blue-800"
-                                            href="./index.html">
-                                            Already have an account? Login!
-                                        </a>
-                                    </div>
-                                </form>
+                            <div>
+                            <label for="username" class="block mb-2 text-sm font-medium text-gray-900">Description</label>
+                            <textarea name="description" id="des" cols="20" rows="3" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 w-full p-2.5"></textarea> 
                             </div>
+                            <div>
+                            </div>
+                            <button type="submit" class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Create an account</button>
+                        </form>
                         </div>
                     </div>
-                </div>
-            </div>
+                </section>
+    </div>
     );
 }
 
