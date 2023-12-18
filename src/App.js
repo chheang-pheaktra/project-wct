@@ -6,9 +6,10 @@ import Service from "./page/Service";
 import About from "./page/About";
 import Signup from "./page/signup";
 import Create from "./page/Create";
-import StoreFood from "./Food/StoreFood";
 import { ToastContainer } from "react-toastify";
 import index from "./page";
+import Food from "./page/Food";
+import Resturant from "./page/resturant";
 export default function App() {
   return (
     <div>
@@ -18,7 +19,8 @@ export default function App() {
         <Routes>
           <Route path="/" exact Component={index}/>
           <Route path="/Create" exact Component={Create}/>
-          <Route path="/StoreFood"  exact Component={StoreFood} />
+          <Route path="/Food" index Component={Food}/>
+          <Route path="/res" index Component={Resturant} />
           <Route path="/service" exact Component={Service}/>
           <Route path="/About" exact Component={About}/>
           <Route path="/login" exact Component={Login}/>
