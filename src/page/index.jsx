@@ -11,7 +11,7 @@ const index = () => {
               Empowering you to make better financial decisions, We truly are professional money planners...
             </p>
             <div class="mt-4">
-              <Link to="/Create" className="px-5 py-3 text-lg tracking-wider text-white bg-blue-500 rounded-lg md:px-8 hover:bg-blue-600 group"><span>Create Now</span> </Link>
+              <Link to="/qr" className="px-5 py-3 text-lg tracking-wider text-white bg-blue-500 rounded-lg md:px-8 hover:bg-blue-600 group"><span>Create Now</span> </Link>
             </div>
           </div>
   
