@@ -10,6 +10,7 @@ import { ToastContainer } from "react-toastify";
 import index from "./page";
 import Food from "./page/Food";
 import Resturant from "./page/resturant";
+import Qrcode from "./page/Qrcode";
 export default function App() {
   return (
     <div>
@@ -21,6 +22,7 @@ export default function App() {
           <Route path="/Create" exact Component={Create}/>
           <Route path="/Food" index Component={Food}/>
           <Route path="/res" index Component={Resturant} />
+          <Route path="/Qrcode" index Component={Qrcode}/>
           <Route path="/service" exact Component={Service}/>
           <Route path="/About" exact Component={About}/>
           <Route path="/login" exact Component={Login}/>
