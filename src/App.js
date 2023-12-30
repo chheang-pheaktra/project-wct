@@ -2,7 +2,6 @@ import { BrowserRouter as Router,Routes,Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/footer";
 import Login from "./page/login";
-import Service from "./page/Service";
 import About from "./page/About";
 import Signup from "./page/signup";
 import Create from "./page/Create";
@@ -12,6 +11,9 @@ import Food from "./page/Food";
 import Resturant from "./page/resturant";
 import Qrcode from "./page/Qrcode";
 import Addfood from "./page/Addfood";
+import Contact from './page/Contact'
+
+
 export default function App() {
   return (
     <div>
@@ -25,7 +27,7 @@ export default function App() {
           <Route path="/res" index Component={Resturant} />
           <Route path="/Qrcode" index Component={Qrcode}/>
           <Route path="/Add" index Component={Addfood}/>
-          <Route path="/service" exact Component={Service}/>
+          <Route path="/Contact" index Component={Contact}/>
           <Route path="/About" exact Component={About}/>
           <Route path="/login" exact Component={Login}/>
           <Route path="/signup" exact Component={Signup}/>

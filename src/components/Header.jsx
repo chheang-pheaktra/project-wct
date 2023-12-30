@@ -14,11 +14,10 @@ const Header = () => {
                 </Link>
                 <div class="flex mt-4 sm:mt-0">
                     <Link to="/" class="px-4">Home</Link>
-                    <Link to="/Service" class="px-4" >Services</Link>
+                    <Link to="/Contact" class="px-4" >Contact Us</Link>
                     <Link to="/About" class="px-4">About Us</Link>
                 </div>
                 <div class="hidden md:block">
-                    <Link to="/signup" class="px-4">Sign Up</Link>
                     <Link to="/login" class="px-4" >Login</Link>
                 </div>
             </div>

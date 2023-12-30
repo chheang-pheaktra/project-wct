@@ -1,42 +1,54 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import firebase from '../firebaseCofig';
 const Login = () => {
-    const [username,usernameUpdate]=useState('');
+    const [email,emailUpdate]=useState('');
     const [password,passwordUpdate]=useState('');
     const loginNavigate=useNavigate();
     const Processlogin= (e)=>{
         e.preventDefault();
-        if(validate()){
-            fetch("http://localhost:3000/user/"+ username).then((res)=>{
-                return res.json();
-            }).then((resp)=>{
-               if(Object.keys(resp).length===0){
-                alert('invalid username');
-                
-               }
-               else{
-                if(resp.password===password){
-                    loginNavigate('/');
-                }else{
-                    alert('invalid password')
-                }
+        try{
+            const user=firebase.auth().signInWithEmailAndPassword(email,password);
+            if(user){
+                alert("success");
+                loginNavigate('/res');
 
-               }
-            }).catch((err)=>{
-                console.log(err);
-            })
+            }
         }
+        catch(error){
+            alert(error);
+        }
+        // if(validate()){
+        //     fetch("http://localhost:3000/user/"+ username).then((res)=>{
+        //         return res.json();
+        //     }).then((resp)=>{
+        //        if(Object.keys(resp).length===0){
+        //         alert('invalid username');
+                
+        //        }
+        //        else{
+        //         if(resp.password===password){
+        //             loginNavigate('/');
+        //         }else{
+        //             alert('invalid password')
+        //         }
+
+        //        }
+        //     }).catch((err)=>{
+        //         console.log(err);
+        //     })
+        // }
     }
-    const validate =()=>{
-        let result=true;
-        if(username===' '||username===null){
-             result=false;
-        }
-        if(password===' '|| password===null){
-             result=false;
-        }
-        return result;
-    }
+    // const validate =()=>{
+    //     let result=true;
+    //     if(username===' '||username===null){
+    //          result=false;
+    //     }
+    //     if(password===' '|| password===null){
+    //          result=false;
+    //     }
+    //     return result;
+    // }
 
 
     return (
@@ -80,7 +92,7 @@ const Login = () => {
            <form className='container' onSubmit={Processlogin}>
                 <div class="mt-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2">Username</label>
-                    <input value={username} onChange={e=>usernameUpdate(e.target.value)} class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" type="text" />
+                    <input value={email} onChange={e=>emailUpdate(e.target.value)} class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" type="email" />
                 </div>
                 <div class="mt-4">
                     <div class="flex justify-between">
