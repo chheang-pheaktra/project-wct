@@ -7,7 +7,7 @@ const Header = () => {
             <div className="container flex flex-col sm:flex-row justify-between items-center mx-auto py-4 px-8">
                 <Link to="/">
                     <div class="flex items-center text-2xl">
-                        <div class="w-12 mr-3">
+                        <div class="w-16 mr-3">
                             <img src={Logo} className="rounded-full" />
                         </div>RESCAM
                     </div>

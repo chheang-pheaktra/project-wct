@@ -11,7 +11,7 @@ import Food from "./page/Food";
 import Resturant from "./page/resturant";
 import Qrcode from "./page/Qrcode";
 import Addfood from "./page/Addfood";
-import Contact from './page/Contact'
+import Contact from './page/Contact';
 
 
 export default function App() {

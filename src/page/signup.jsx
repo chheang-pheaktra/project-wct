@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import firebase from '../firebaseCofig';
 
 const Signup = () => {
@@ -25,7 +24,7 @@ const Signup = () => {
     }
     return (
         <div class="py-16">
-        <div class="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl">
+        <div class="flex bg-white rounded-lg  overflow-hidden mx-auto max-w-sm lg:max-w-4xl">
             <div className="hidden lg:block lg:w-1/2 bg-cover"
                 style={
                     {

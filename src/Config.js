@@ -1,10 +1,12 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import firebase from 'firebase/compat/app';
-import {getStorage } from  'firebase/storage'
-import 'firebase/compat/auth';
-import 'firebase/compat/database';
+import { getStorage} from  'firebase/storage'
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyC5EmKDbYvqOXqMnDpE-uWLWS7S7J6R3Nw",
   authDomain: "restaurant-89325.firebaseapp.com",
@@ -17,8 +19,5 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app =firebase.initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const imgDB= getStorage(app);
-
-export default app;
+const app = initializeApp(firebaseConfig);
+export const imageDb=getStorage(app);
