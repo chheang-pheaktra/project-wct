@@ -1,20 +1,27 @@
 import React, { useState } from 'react';
-import { imageDb } from '../Config';
 import logo from '../assets/logo.jpg';
-import {ref, uploadBytes} from 'firebase/storage'
+import {getDownloadURL, ref, uploadBytes} from 'firebase/storage'
+import {txtDb,imgDb } from '../firebaseStor'
+import {addDoc,collection} from 'firebase/firestore';
 import { v4 } from 'uuid';
 const Addfood = () => {
     const [name,setName]=useState(' ');
     const [price,setPrice]=useState(' ');
     const [img,setImg]=useState('');
-    const handleClick=()=>{
-       if(img!=null){
-        const imgref=ref(imageDb,`files/${v4()}`)
-        console.log(imgref);
-        uploadBytes(imgref,img);
-       }
+    const handleClick=(e)=>{
+        const imgref=ref(imgDb,`files/${v4()}`)
+        uploadBytes(imgref,e.target.files[0]).then(data=>{
+            
+            getDownloadURL(data.ref).then(val=>{
+                setImg(val);
+            })
+        })
     }
-  
+    const handleadd= async ()=>{
+        const valRef = collection(txtDb,'txtData');
+        await addDoc(valRef,{txtVal:name,txtPrice:price,imgUrl:img});
+        alert("data added sucessesfully")
+    }
     return (
         <section>
             <div className="min-h-screen bg-gray-50 flex flex-col py-12 sm:px-6 lg:px-8 px-6">
@@ -50,12 +57,12 @@ const Addfood = () => {
                             <div className="mt-6">
                                 <label for="password" className="block text-sm font-medium leading-5 text-gray-700">Image</label>
                                 <div class="mt-1 rounded-md shadow-sm">
-                                    <input  onChange={(e)=>setImg(e.target.files[0])} id="img" name="img" type="file" required="" className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"/>
+                                    <input  onChange={(e)=>handleClick(e)} id="img" name="img" type="file" required="" className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"/>
                                 </div>
                             </div>
                             <div className="mt-6">
                                 <span className="block w-full rounded-md shadow-sm">
-                        <button type="button" onClick={handleClick} className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-blue-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out">
+                        <button type="button" onClick={handleadd} className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-blue-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out">
                         Upload
                         </button>
                     </span>
