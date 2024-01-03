@@ -1,26 +1,25 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import firebase from '../firebaseCofig';
+import {auth,app} from '../firebaseCofig';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 const Signup = () => {
 
     const [Username,usernameChange]=useState("");
     const [email,emailChange]=useState("");
     const [password,passwordChange]=useState("");
-    const nav=useNavigate();
+    const nav=useNavigate('');
 
     const handlesubmit=(e)=>{
         e.preventDefault();
-        try{
-            const user=firebase.auth().createUserWithEmailAndPassword(email,password);
-            if(user){
-                alert("success");
-                nav('/res');
-            }
-        }
-        catch(error){
-            alert(error);
-        }
+        createUserWithEmailAndPassword(auth,email,password)
+        .then((userCredentail)=>{
+           alert("ok")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+       
     }
     return (
         <div class="py-16">

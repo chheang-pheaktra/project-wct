@@ -1,28 +1,24 @@
 import React, { useState } from 'react';
-import { Link, useNavigate,useParams } from 'react-router-dom';
-import firebase from '../firebaseCofig';
+import { Link, useNavigate } from 'react-router-dom';
+import {auth,app} from "../firebaseCofig"
+import { signInWithEmailAndPassword } from 'firebase/auth';
 const Login = () => {
     const [email,emailUpdate]=useState('');
     const [password,passwordUpdate]=useState('');
     const loginNavigate=useNavigate();
-    let Param=useParams();
     const Processlogin= (e)=>{
         e.preventDefault();
-        try{
-            const user=firebase.auth().signInWithEmailAndPassword(email,password);
-            if(user){
-                alert("success");
-                loginNavigate('/res/'+Param(user));
-
-            }
-        }
-        catch(error){
-            alert(error);
-        }
+            signInWithEmailAndPassword(auth,email,password)
+            .then((userCredential)=>{
+                loginNavigate('/res')
+            })
+            .catch((err)=>{
+             alert("error");
+            })
+            
+        
     }
    
-
-
     return (
     <div class="py-16">
     <div class="flex bg-white rounded-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl">

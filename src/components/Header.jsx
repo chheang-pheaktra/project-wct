@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../assets/logo.jpg'
+import Auth from './Auth';
+
 const Header = () => {
     return (
         <header className="sticky top-0 bg-white shadow text-blue-500">
@@ -18,7 +20,7 @@ const Header = () => {
                     <Link to="/About" class="px-4">About Us</Link>
                 </div>
                 <div class="hidden md:block">
-                    <Link to="/login" class="px-4" >Login</Link>
+                   <Auth/>
                 </div>
             </div>
         </header>
