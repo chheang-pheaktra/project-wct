@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/restaurant-management/static/css/main.addbc2bb.css",
+    "main.js": "/restaurant-management/static/js/main.049a57bb.js",
+    "static/js/787.aab8bd84.chunk.js": "/restaurant-management/static/js/787.aab8bd84.chunk.js",
+    "static/media/about.gif": "/restaurant-management/static/media/about.c9a88b5a2e8d1c0a93bb.gif",
+    "static/media/pic1.gif": "/restaurant-management/static/media/pic1.6c45cc2e111a9b44de67.gif",
+    "static/media/avatar2.jpg": "/restaurant-management/static/media/avatar2.d7b27ade8c27448906f8.jpg",
+    "static/media/avatar.jpg": "/restaurant-management/static/media/avatar.02ad0b19642dfcb95dfa.jpg",
+    "static/media/avatar3.jpg": "/restaurant-management/static/media/avatar3.142de1b762514af206cb.jpg",
+    "static/media/logo.jpg": "/restaurant-management/static/media/logo.8a73a65f11573ed5c5dc.jpg",
+    "index.html": "/restaurant-management/index.html",
+    "main.addbc2bb.css.map": "/restaurant-management/static/css/main.addbc2bb.css.map",
+    "main.049a57bb.js.map": "/restaurant-management/static/js/main.049a57bb.js.map",
+    "787.aab8bd84.chunk.js.map": "/restaurant-management/static/js/787.aab8bd84.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.addbc2bb.css",
+    "static/js/main.049a57bb.js"
+  ]
+}
