@@ -1,30 +1,30 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import firebase from '../firebaseCofig';
 
 const Signup = () => {
-    const [id,idChange]=useState("");
+
+    const [Username,usernameChange]=useState("");
     const [email,emailChange]=useState("");
     const [password,passwordChange]=useState("");
     const nav=useNavigate();
 
     const handlesubmit=(e)=>{
         e.preventDefault();
-        let obj={id,email,password}
-        
-        fetch("http://localhost:3000/user",{
-            method:"POST",
-            headers:{'content-type':'application/json'},
-            body:JSON.stringify(obj)
-        }).then((res)=>{
-            nav('/Create')
-        }).catch((error)=>{
-            toast.error('sign up not successfully'+error);
-        })
+        try{
+            const user=firebase.auth().createUserWithEmailAndPassword(email,password);
+            if(user){
+                alert("success");
+                nav('/res');
+            }
+        }
+        catch(error){
+            alert(error);
+        }
     }
     return (
         <div class="py-16">
-        <div class="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl">
+        <div class="flex bg-white rounded-lg  overflow-hidden mx-auto max-w-sm lg:max-w-4xl">
             <div className="hidden lg:block lg:w-1/2 bg-cover"
                 style={
                     {
@@ -63,7 +63,7 @@ const Signup = () => {
                <form action="" onSubmit={handlesubmit}>
                <div class="mt-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2">Username</label>
-                    <input value={id} onChange={e=>idChange(e.target.value)} class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" type="email" />
+                    <input value={Username} onChange={e=>usernameChange(e.target.value)} class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" type="email" />
                 </div>
                 <div class="mt-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2">Email Address</label>
