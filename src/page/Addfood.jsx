@@ -1,26 +1,29 @@
+"use strict"
+
 import React, { useState } from 'react';
 import logo from '../assets/logo.jpg';
 import {getDownloadURL, ref, uploadBytes} from 'firebase/storage'
-import {txtDb,imgDb } from '../firebaseStor'
-import {addDoc,collection} from 'firebase/firestore';
+import { db, storage } from '../firebaseStor';
+import {doc,addDoc,collection} from 'firebase/firestore';
 import { v4 } from 'uuid';
 const Addfood = () => {
     const [name,setName]=useState(' ');
     const [price,setPrice]=useState(' ');
     const [img,setImg]=useState('');
     const handleClick=(e)=>{
-        const imgref=ref(imgDb,`files/${v4()}`)
+        const imgref=ref(storage,`files/${v4()}`)
         uploadBytes(imgref,e.target.files[0]).then(data=>{
-            
+            console.log(data,'imgref');
             getDownloadURL(data.ref).then(val=>{
                 setImg(val);
             })
         })
+       
     }
-    const handleadd= async ()=>{
-        const valRef = collection(txtDb,'txtData');
-        await addDoc(valRef,{txtVal:name,txtPrice:price,imgUrl:img});
-        alert("data added sucessesfully")
+    const dbref=collection(db,'CRUD');
+    const handleUpload=async()=>{
+        await addDoc(dbref,{txtVal:name,txtPrice:price,imgUrl:img})
+        alert("ok");
     }
     return (
         <section>
@@ -62,7 +65,7 @@ const Addfood = () => {
                             </div>
                             <div className="mt-6">
                                 <span className="block w-full rounded-md shadow-sm">
-                        <button type="button" onClick={handleadd} className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-blue-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out">
+                        <button type="button" onClick={handleUpload} className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-blue-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out">
                         Upload
                         </button>
                     </span>

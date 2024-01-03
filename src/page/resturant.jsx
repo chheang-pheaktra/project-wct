@@ -1,29 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {getDownloadURL, listAll,ref } from 'firebase/storage';
-import { imageDb } from '../Config';
 const Resturant = () => {
-    const [imageurl,setImageurl]=useState([]);
-   useEffect(() => {
-    const fetchImageURLs = async () => {
-        try {
-            const imgs = await listAll(ref(imageDb, "files"));
-
-            const urlPromises = imgs.items.map(async (val) => {
-                const url = await getDownloadURL(val);
-                return url;
-            });
-
-            const imageURLs = await Promise.all(urlPromises);
-            setImageurl((prevURLs) => [...prevURLs, ...imageURLs]);
-        } catch (error) {
-            console.error("Error fetching image URLs:", error);
-        }
-    };
-
-    fetchImageURLs();
-}, []);
-
     return (
         <section>
             <div class="flex flex-col justify-center items-center ">
@@ -37,11 +15,9 @@ const Resturant = () => {
                 </div>
             </div> 
                 <div class=" mx-auto lg:w-5/6">
-                {
-    imageurl.map(result => (
         <div class="p-3 flex items-center justify-between border-t cursor-pointer hover:bg-gray-200 shadow-sm">
             <div class="flex items-center">
-                <img class="rounded-full h-24 w-24" src={result} alt="Food"/>
+                <img class="rounded-full h-24 w-24" src alt="Food"/>
                 <div class="ml-6 flex flex-col">
                     <div class="leading-snug text-sm lg:text-lg text-gray-900 font-bold">Jane doe</div>
                 </div>
@@ -52,8 +28,6 @@ const Resturant = () => {
                 <button class="h-8 px-3 text-md font-bold text-blue-400 border border-blue-400 rounded-full hover:bg-red-500 hover:text-white">Delete</button>
             </div>
         </div>
-    ))
-}
 
                 </div>
         </section>
