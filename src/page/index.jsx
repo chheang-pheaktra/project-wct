@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import HomeImg from '../assets/pic1.gif'
+import Authpage from '../components/Authpage';
 const index = () => {
     return (
         <div>
@@ -11,7 +12,7 @@ const index = () => {
               Empowering you to make better financial decisions, We truly are professional money planners...
             </p>
             <div class="mt-4">
-              <Link to="/res" className="px-5 py-3 text-lg tracking-wider text-white bg-blue-500 rounded-lg md:px-8 hover:bg-blue-600 group"><span>Create Now</span> </Link>
+             <Authpage/>
             </div>
           </div>
           <div class="pb-10 overflow-hidden -z-10 md:p-10 lg:p-0 sm:pb-0">

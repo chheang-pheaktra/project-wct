@@ -28,11 +28,14 @@ const Auth = () => {
         {
             authenticatedUser===null ? 
             <>
-                <Link to="/login" class="px-4" >Login</Link>
-                <Link to="/signup" class="px-4" >Signup</Link>  
+                <div className="bg-blue-600 p-2 text-white rounded-md">
+                    <Link to="/login" class="px-4" >Login</Link>
+                </div>
             </>:
             <>
-            <Link to="/" onClick={userSignout} class="px-4" >Log Out</Link>
+           <div className="bg-red-600 p-2 text-white rounded-md">
+                <Link to="/" onClick={userSignout} class="px-4" >Logout</Link>
+           </div>
             </>
 
         }

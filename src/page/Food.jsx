@@ -12,6 +12,7 @@ const Food = () => {
     useEffect(()=>{
         getData();
     },[])
+    console.log(data,'data');
     return (
         <div className="flex flex-wrap justify-center">
             {
@@ -22,7 +23,7 @@ const Food = () => {
                             <rect y="107.48" width="152" height="152" rx="8" transform="rotate(-45 0 107.48)" fill="white" />
                         </svg>
                         <div class="relative pt-10 px-10 flex items-center justify-center">
-                            <img class="relative w-40" src={results?.imgurl}/>
+                            <img class="relative w-40" src={results?.imgUrl}/>
                         </div>
                         <div class="relative text-black px-6 pb-6 mt-6">
                             <div class="flex justify-between">

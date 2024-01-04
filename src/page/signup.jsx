@@ -15,6 +15,7 @@ const Signup = () => {
         createUserWithEmailAndPassword(auth,email,password)
         .then((userCredentail)=>{
            alert("ok")
+           nav('/res')
         })
         .catch((err)=>{
             console.log(err);

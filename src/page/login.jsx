@@ -10,13 +10,13 @@ const Login = () => {
         e.preventDefault();
             signInWithEmailAndPassword(auth,email,password)
             .then((userCredential)=>{
+                alert("ok")
                 loginNavigate('/res')
+            
             })
             .catch((err)=>{
              alert("error");
             })
-            
-        
     }
    
     return (
@@ -59,7 +59,7 @@ const Login = () => {
             </div>
            <form className='container' onSubmit={Processlogin}>
                 <div class="mt-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2">Username</label>
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Email</label>
                     <input value={email} onChange={e=>emailUpdate(e.target.value)} class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" type="email" />
                 </div>
                 <div class="mt-4">

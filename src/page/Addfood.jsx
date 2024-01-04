@@ -13,17 +13,16 @@ const Addfood = () => {
     const handleClick=(e)=>{
         const imgref=ref(storage,`files/${v4()}`)
         uploadBytes(imgref,e.target.files[0]).then(data=>{
-            console.log(data,'imgref');
             getDownloadURL(data.ref).then(val=>{
                 setImg(val);
             })
         })
        
     }
-    const dbref=collection(db,'CRUD');
     const handleUpload=async()=>{
+        const dbref=collection(db,'CRUD');
         await addDoc(dbref,{txtVal:name,txtPrice:price,imgUrl:img})
-        alert("ok");
+        alert("Added");
     }
     return (
         <section>
