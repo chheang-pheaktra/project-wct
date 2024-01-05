@@ -3,8 +3,10 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import firebase from 'firebase/compat/app';
 import {getStorage } from  'firebase/storage'
+import { getAuth } from "firebase/auth";
 import 'firebase/compat/auth';
 import 'firebase/compat/database';
+import { getFirestore } from "firebase/firestore";
 const firebaseConfig = {
   apiKey: "AIzaSyC5EmKDbYvqOXqMnDpE-uWLWS7S7J6R3Nw",
   authDomain: "restaurant-89325.firebaseapp.com",
@@ -20,5 +22,7 @@ const firebaseConfig = {
 const app =firebase.initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const imgDB= getStorage(app);
-
-export default app;
+const auth=getAuth(app);
+const storage=getStorage(app);
+const db=getFirestore(app);
+export {app,auth,storage,db}

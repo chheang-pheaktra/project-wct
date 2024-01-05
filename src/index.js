@@ -1,10 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
+import { AuthContextProvider } from "./Context/AuthContext";
 
 // the translations
 // (tip move them in a JSON file and import them,
@@ -12,14 +13,14 @@ import { initReactI18next } from "react-i18next";
 const resources = {
   en: {
     translation: {
-      "Welcome to React": "Welcome to React and react-i18next"
-    }
+      "Welcome to React": "Welcome to React and react-i18next",
+    },
   },
   fr: {
     translation: {
-      "Welcome to React": "Bienvenue à React et react-i18next"
-    }
-  }
+      "Welcome to React": "Bienvenue à React et react-i18next",
+    },
+  },
 };
 
 i18n
@@ -31,16 +32,18 @@ i18n
     // if you're using a language detector, do not define the lng option
 
     interpolation: {
-      escapeValue: false // react already safes from xss
-    }
+      escapeValue: false, // react already safes from xss
+    },
   });
 
-  export default i18n;
-const root = ReactDOM.createRoot(document.getElementById('root'));
+export default i18n;
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <AuthContextProvider>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </AuthContextProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
