@@ -3,20 +3,20 @@ import { Link, useNavigate } from 'react-router-dom';
 import {auth,app} from "../firebaseCofig"
 import { signInWithEmailAndPassword } from 'firebase/auth';
 const Login = () => {
-    const [email,emailUpdate]=useState('');
-    const [password,passwordUpdate]=useState('');
+    const navigate=useNavigate();
+    const [err,SetErr]=useState('');
     const loginNavigate=useNavigate();
-    const Processlogin= (e)=>{
+    const Processlogin= async (e)=>{
         e.preventDefault();
+        const email = e.target[0].value;
+        const password = e.target[1].value;
             signInWithEmailAndPassword(auth,email,password)
-            .then((userCredential)=>{
-                alert("ok")
-                loginNavigate('/res')
-            
-            })
-            .catch((err)=>{
-             alert("error");
-            })
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                loginNavigate("/")
+              } catch (err) {
+                SetErr(true);
+              }
     }
    
     return (
@@ -60,14 +60,14 @@ const Login = () => {
            <form className='container' onSubmit={Processlogin}>
                 <div class="mt-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2">Email</label>
-                    <input value={email} onChange={e=>emailUpdate(e.target.value)} class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" type="email" />
+                    <input class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" type="email" />
                 </div>
                 <div class="mt-4">
                     <div class="flex justify-between">
                         <label class="block text-gray-700 text-sm font-bold mb-2">Password</label>
                         <a href="#" class="text-xs text-gray-500">Forget Password?</a>
                     </div>
-                    <input value={password} onChange={e=>passwordUpdate(e.target.value)} class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" type="password" />
+                    <input class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" type="password" />
                 </div>
                 <div class="mt-8">
                     <button class="bg-gray-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-gray-600">Login</button>

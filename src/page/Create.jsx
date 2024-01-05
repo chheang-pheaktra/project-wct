@@ -1,6 +1,7 @@
 import React from 'react';
 const Create = () => {
     return (
+        
     <div class="h-full">
                 <section class="flex flex-col items-center pt-6">
                     <div
@@ -13,6 +14,10 @@ const Create = () => {
                             <div>
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-900 ">Name Res</label>
                             <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 " placeholder="Emelia Erickson" required="" />
+                            </div>
+                            <div>
+                            <label for="file" class="block mb-2 text-sm font-medium text-gray-900 ">Image</label>
+                            <input type="file" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 " placeholder="Image" required="" />
                             </div>
                             <div>
                             <label for="username" class="block mb-2 text-sm font-medium text-gray-900">Description</label>

@@ -26,7 +26,7 @@ const Authpage = () => {
                      <Link to="/login" className="px-5 py-3 text-lg tracking-wider text-white bg-blue-600 rounded-lg md:px-8 hover:bg-blue-600 group"><span>Start Now</span> </Link>
                 </>:
                 <>
-                 <Link to="/res" className="px-5 py-3 text-lg tracking-wider text-white bg-blue-600 rounded-lg md:px-8 hover:bg-blue-600 group"><span>Start Now</span> </Link>
+                 <Link to="/resturant" className="px-5 py-3 text-lg tracking-wider text-white bg-blue-600 rounded-lg md:px-8 hover:bg-blue-600 group"><span>Start Now</span> </Link>
                 </>
             }
        </>

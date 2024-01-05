@@ -1,25 +1,59 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import {auth,app} from '../firebaseCofig';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import {storage, db,auth} from '../firebaseCofig';
+import { createUserWithEmailAndPassword, getAuth, updateProfile } from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore'
+import {getStorage,ref,uploadBytesResumable,getDownloadURL } from 'firebase/storage'
 
 const Signup = () => {
+    const [err, setErr] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
-    const [Username,usernameChange]=useState("");
-    const [email,emailChange]=useState("");
-    const [password,passwordChange]=useState("");
-    const nav=useNavigate('');
-
-    const handlesubmit=(e)=>{
+    const handlesubmit= async (e)=>{
         e.preventDefault();
-        createUserWithEmailAndPassword(auth,email,password)
-        .then((userCredentail)=>{
-           alert("ok")
-           nav('/res')
-        })
-        .catch((err)=>{
-            console.log(err);
-        })
+       const displayName=e.target[0].value;
+       const email=e.target[1].value;
+       const password=e.target[2].value;
+       const file=e.target[3].files[0];
+       try {
+        //Create user
+        const res = await createUserWithEmailAndPassword(auth, email, password);
+  
+        //Create a unique image name
+        const date = new Date().getTime();
+        const storageRef = ref(storage, `${displayName + date}`);
+  
+        await uploadBytesResumable(storageRef, file).then(() => {
+          getDownloadURL(storageRef).then(async (downloadURL) => {
+            try {
+              //Update profile
+              await updateProfile(res.user, {
+                displayName,
+                photoURL: downloadURL,
+              });
+              //create user on firestore
+              await setDoc(doc(db, "users", res.user.uid), {
+                uid: res.user.uid,
+                displayName,
+                email,
+                photoURL: downloadURL,
+              });
+  
+              //create empty user chats on firestore
+              await setDoc(doc(db, "userChats", res.user.uid), {});
+              navigate("/");
+            } catch (err) {
+              console.log(err);
+              setErr(true);
+              setLoading(false);
+            }
+          });
+        });
+      } catch (err) {
+        setErr(true);
+        setLoading(false);
+      }
        
     }
     return (
@@ -63,17 +97,23 @@ const Signup = () => {
                <form action="" onSubmit={handlesubmit}>
                <div class="mt-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2">Username</label>
-                    <input value={Username} onChange={e=>usernameChange(e.target.value)} class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" type="email" />
+                    <input  class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" type="text" />
                 </div>
                 <div class="mt-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2">Email Address</label>
-                    <input value={email} onChange={e=>emailChange(e.target.value)} class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" type="email" />
+                    <input class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" type="email" />
                 </div>
                 <div class="mt-4">
                     <div class="flex justify-between">
                         <label class="block text-gray-700 text-sm font-bold mb-2">Password</label>
                     </div>
-                    <input value={password} onChange={e=>passwordChange(e.target.value)} class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" type="password" />
+                    <input class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" type="password" />
+                </div>
+                <div class="mt-4">
+                    <div class="flex justify-between">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Image</label>
+                    </div>
+                    <input class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" type="file" />
                 </div>
                 <div class="mt-8">
                     <button class="bg-gray-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-gray-600">Sign up</button>

@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import HomeImg from '../assets/pic1.gif'
 import Authpage from '../components/Authpage';
-const index = () => {
+const Home = () => {
     return (
         <div>
+             <div>
           <div className="items-center w-10/12 grid-cols-2 mx-auto overflow-x-hidden lg:grid md:py-14 lg:py-24 xl:py-14 lg:mt-3 xl:mt-5" data-aos="fade-right" data-aos-duration="800">
           <div className="pr-2 md:mb-14 py-14 md:py-0">
             <h1 className="text-3xl font-semibold text-blue-900 xl:text-5xl lg:text-3xl"><span class="block w-full animate-typing overflow-hidden whitespace-nowrap">Welcome Our Website</span> For Your business!</h1>
@@ -20,7 +20,8 @@ const index = () => {
           </div>
             </div>
         </div>
+        </div>
     );
 }
 
-export default index;
+export default Home;

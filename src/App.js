@@ -1,39 +1,56 @@
-import { BrowserRouter as Router,Routes,Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/footer";
 import Login from "./page/login";
-import About from "./page/About";
 import Signup from "./page/signup";
-import Create from "./page/Create";
-import { ToastContainer } from "react-toastify";
-import index from "./page";
-import Food from "./page/Food";
+import Contact from './page/Contact'
+import { useContext } from "react";
+import { AuthContext } from "./Context/AuthContext";
+import Home from "./page/Home";
+import About from "./page/About"
 import Resturant from "./page/resturant";
+import Food from "./page/Food";
 import Qrcode from "./page/Qrcode";
 import Addfood from "./page/Addfood";
-import Contact from './page/Contact';
-
-
 export default function App() {
+  const { currentUser } = useContext(AuthContext);
+  // const ProtectedRoute = ({ children }) => {
+  //   if (!currentUser) {
+  //     return <Navigate to="/login" />;
+  //   }
+  // };
   return (
     <div>
       <Router>
-        <ToastContainer></ToastContainer>
-        <Header/>
+        <Header />
         <Routes>
-          <Route path="/" exact Component={index}/>
-          <Route path="/Create" exact Component={Create}/>
-          <Route path="/Food" index Component={Food}/>
-          <Route path="/res" index Component={Resturant} />
-          <Route path="/Qrcode" index Component={Qrcode}/>
-          <Route path="/Add" index Component={Addfood}/>
-          <Route path="/Contact" index Component={Contact}/>
-          <Route path="/About" exact Component={About}/>
-          <Route path="/login" exact Component={Login}/>
-          <Route path="/signup" exact Component={Signup}/>
+          <Route path="/">
+            <Route
+              index
+              element={
+                // <ProtectedRoute>
+                //   <Home />
+                // </ProtectedRoute>
+                <Home/>
+              }
+            />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+          </Route>
+          <Route path="/contact" index element={<Contact/>}/>
+          <Route path="/About" index element={<About/>}/>
+          <Route path="/resturant" index element={<Resturant/>}/>
+          <Route path="/Food" index element={<Food/>}/>
+          <Route path="/Qrcode" index element={<Qrcode/>}/>
+          <Route path="/Addfood" index element={<Addfood/>}/>
         </Routes>
-        <Footer/>
+        <Footer />
       </Router>
     </div>
-  )
+  );
 }

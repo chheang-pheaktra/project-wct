@@ -1,11 +1,14 @@
 
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import logo from '../assets/logo.jpg';
 import {getDownloadURL, ref, uploadBytes} from 'firebase/storage'
 import { db, storage } from '../firebaseStor';
 import {addDoc,collection} from 'firebase/firestore';
 import { v4 } from 'uuid';
+import { AuthContext } from '../Context/AuthContext';
 const Addfood = () => {
+    const {currentUser}=useContext(AuthContext);
+    console.log(currentUser)
     const [name,setName]=useState(' ');
     const [price,setPrice]=useState(' ');
     const [img,setImg]=useState('');
@@ -20,8 +23,19 @@ const Addfood = () => {
     }
     const handleUpload=async()=>{
         const dbref=collection(db,'CRUD');
-        await addDoc(dbref,{txtVal:name,txtPrice:price,imgUrl:img})
-        alert("Added");
+        if(!currentUser){
+            console.error('Current user not available');
+            return;
+        }
+        const userId=currentUser.uid;
+        try{
+            await addDoc(dbref,{txtVal:name,txtPrice:price,imgUrl:img,id:userId})
+            alert("Added");
+
+        }catch(error){
+            console.error('Error adding document: ', error);
+            alert('Error adding product. Please try again.');
+        }
     }
     return (
         <section>
