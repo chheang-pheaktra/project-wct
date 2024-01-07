@@ -1,15 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { collection, deleteDoc, doc, getDocs } from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../firebaseStor';
 import {AuthContext} from '../Context/AuthContext'
 const Resturant = () => {
     const {currentUser}=useContext(AuthContext);
     console.log(currentUser);
+    const userID=currentUser.uid;
     const [data,setData]=useState([]);
     const getData=async()=>{
-        const dbref=collection(db,'CRUD');
-        const dataDb=await getDocs(dbref);
+        const q=query(collection(db,'CRUD'),where('id','==',userID))
+        const dataDb=await getDocs(q);
         const allData=dataDb.docs.map(val=>({...val.data(),id:val.id}));
         setData(allData);
     }
@@ -27,9 +28,10 @@ const Resturant = () => {
     }
     return (
         <section>
-            <div class="flex flex-col justify-center items-center ">
+            <div class="flex flex-col justify-center items-center mt-5">
                     <img className="rounded-full w-64 h-64 object-fit"  src={currentUser?.photoURL}/>
                         <h1 class="text-4xl font-bold mb-4">{currentUser?.displayName}</h1>
+                        <h1 class="text-4xl  mb-4">{currentUser?.email}</h1>
                     <div class="mb-5 flex justify-center items-center space-x-4">
                         <Link to="/Food" href="#" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">View Food</Link>
                         <Link to="/Addfood" href="#" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">Add Food</Link>
@@ -47,7 +49,7 @@ const Resturant = () => {
                         </div>
                     </div>
                     <p>{result.txtPrice}</p>
-                    <div className="">
+                    <div className="flex">
                         <button class="h-8 px-3 mx-2 text-md font-bold text-blue-400 border border-blue-400 rounded-full hover:bg-blue-500 hover:text-white">Edit</button>
                         <button onClick={()=>handleDelete(result.id)} class="h-8 px-3 text-md font-bold text-blue-400 border border-blue-400 rounded-full hover:bg-red-500 hover:text-white">Delete</button>
                     </div>

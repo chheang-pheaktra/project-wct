@@ -3,6 +3,7 @@ import {
   Routes,
   Route,
   Navigate,
+  useParams,
 } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/footer";
@@ -19,6 +20,7 @@ import Qrcode from "./page/Qrcode";
 import Addfood from "./page/Addfood";
 export default function App() {
   const { currentUser } = useContext(AuthContext);
+  const userId=currentUser.uid;
   // const ProtectedRoute = ({ children }) => {
   //   if (!currentUser) {
   //     return <Navigate to="/login" />;

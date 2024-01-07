@@ -1,5 +1,4 @@
 import { QRCodeCanvas } from 'qrcode.react';
-import React from 'react';
 import { useState, useRef } from "react";
 
 const Qrcode = () => {
@@ -31,14 +30,14 @@ const Qrcode = () => {
   );
     return (
       <section className=" mx-auto mt-5">
-        <h1 className="text-center mt-4 text-4xl font-semibold mb-5">Generate Your RES QR</h1>
+        <h1 className="text-center mt-4 text-4xl font-semibold mb-5">Generate Your QR</h1>
       <div className="qrcode__container">
         <div className="flex justify-center align-middle">
         <div className=" " ref={qrRef}>{qrcode}</div>
         </div>
       <div className="input__group text-center pt-4" >
         <form onSubmit={downloadQRCode}>
-          <div className=" xl:w-[350px] mx-auto rounded-lg">
+          <div className=" xl:w-1/2 mx-auto">
           <labe className="" >Enter URL</labe>
           <input
           className="p-4 outline-none mx-5 "
