@@ -9,7 +9,9 @@ const Food = () => {
     const userID=currentUser.uid;
     console.log(userID);
     const [data,setData]=useState([]);
-    const param=useParams();
+    const handleAddToOrder=()=>{
+
+    }
     const getData = async () =>{
         const q=query(collection(db,'CRUD'),where('id','==',userID))
         const dataDb = await getDocs(q)
@@ -42,11 +44,14 @@ const Food = () => {
                                 <span class=" bg-white rounded-full text-xs font-bold px-3 py-2 leading-none flex items-center">{results.txtPrice}</span>
                             </div>
                         </div>
+                        <div onClick={handleAddToOrder} className="bg-blue-500 p-2 ">
+                            <p className="text-center font-medium text-white">Order</p>
+                        </div>
                     </div>   
               
                     )
             }
-        </div>
+            </div>
         </div>
     );
 }
