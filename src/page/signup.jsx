@@ -39,10 +39,9 @@ const Signup = () => {
                 email,
                 photoURL: downloadURL,
               });
-  
+              
               //create empty user chats on firestore
-              await setDoc(doc(db, "userChats", res.user.uid), {});
-              navigate("/");
+             //   await setDoc(doc(db, "userChats", res.user.uid), {});
             } catch (err) {
               console.log(err);
               setErr(true);
@@ -54,7 +53,7 @@ const Signup = () => {
         setErr(true);
         setLoading(false);
       }
-       
+      navigate("/");   
     }
     return (
         <div class="py-16">

@@ -18,9 +18,7 @@ const About = () => {
                     <h2 class="my-4 font-bold text-3xl  sm:text-4xl ">About <span class="text-indigo-600">Our Website</span>
                     </h2>
                     <p class="text-gray-700 text-justify">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, commodi
-                        doloremque, fugiat illum magni minus nisi nulla numquam obcaecati placeat quia, repellat tempore
-                        voluptatum.
+                    A restaurant is a business that prepares and serves food and drinks to customers. Meals are generally served and eaten on the premises, but many restaurants also offer take-out and food delivery services.This includes overseeing the business's daily operations, managing the workforce and finances, planning company strategies, ensuring marketing efforts achieve objectives, and managing the business's reputation.
                     </p>
                 </div>
             </div>
@@ -34,7 +32,8 @@ const About = () => {
                             <div class="space-y-2">
                                 <div class="flex justify-center items-center flex-col space-y-3 text-lg font-medium leading-6">
                                     <h3 class="text-white">Chheang Pheaktra</h3>
-                                    <p class="text-indigo-600">Student of Information Technology Engineering</p>
+                                    <p class="text-indigo-600">Student of ITE</p>
+                                    <p>Begin the journey of today, by letting go of yesterday</p>
                                     <div class="flex justify-center mt-5 space-x-5"><a href="#" target="_blank" rel="noopener noreferrer"
                                             class="inline-block text-gray-400"><span class="sr-only">Twitter</span><svg
                                                 stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512"
