@@ -22,14 +22,13 @@ const Addfood = () => {
        
     }
     const handleUpload=async()=>{
-        const dbref=collection(db,'CRUD');
         if(!currentUser){
-            console.error('Current user not available');
+            console.error('Current user not available');    
             return;
         }
         const userId=currentUser.uid;
         try{
-            await addDoc(dbref,{txtVal:name,txtPrice:price,imgUrl:img,id:userId})
+            await addDoc(collection(db,"CRUD"),{txtVal:name,txtPrice:price,imgUrl:img,id:userId})
             alert("Added");
 
         }catch(error){

@@ -28,6 +28,7 @@ const Qrcode = () => {
       level={"H"}
     />
   );
+  
     return (
       <section className=" mx-auto mt-5">
         <h1 className="text-center mt-4 text-4xl font-semibold mb-5">Generate Your QR</h1>
