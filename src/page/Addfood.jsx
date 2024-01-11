@@ -2,7 +2,7 @@
 import React, { useContext, useState } from 'react';
 import logo from '../assets/logo.jpg';
 import {getDownloadURL, ref, uploadBytes} from 'firebase/storage'
-import { db, storage } from '../firebaseStor';
+import { db, storage } from '../firebaseCofig';
 import {addDoc,collection} from 'firebase/firestore';
 import { v4 } from 'uuid';
 import { AuthContext } from '../Context/AuthContext';

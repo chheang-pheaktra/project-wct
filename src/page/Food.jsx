@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { AuthContext } from '../Context/AuthContext';
-import { db } from '../firebaseStor';
+import { db } from '../firebaseCofig';
 import { useParams } from 'react-router-dom';
 const Food = () => {
     const {currentUser}=useContext(AuthContext);
