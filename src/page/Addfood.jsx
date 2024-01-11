@@ -23,7 +23,7 @@ const Addfood = () => {
     }
     const handleUpload=async()=>{
         if(!currentUser){
-            console.error('Current user not available');
+            console.error('Current user not available');    
             return;
         }
         const userId=currentUser.uid;
