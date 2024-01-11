@@ -42,14 +42,14 @@ export default function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/contact" index element={<Contact/>}/>
-          <Route path="/About" index element={<About/>}/>
-          <Route path="/resturant" index element={<Resturant/>}/>
-          <Route path="/Food" index element={<Food/>}/>
-          <Route path="/Qrcode" index element={<Qrcode/>}/>
-          <Route path="/Addfood" index element={<Addfood/>}/>
-          <Route path="/Order" index element={<Order/>} />
-          </Route>
-          <Route path="/Getuser" index element={<Getuser/>} />
+            <Route path="/About" index element={<About/>}/>
+            </Route>
+            <Route path="/resturant" index element={<Resturant/>}/>
+            <Route path="/Food" index element={<Food/>}/>
+            <Route path="/Qrcode" index element={<Qrcode/>}/>
+            <Route path="/Addfood" index element={<Addfood/>}/>
+            <Route path="/Order" index element={<Order/>} />
+            <Route path="/Getuser" index element={<Getuser/>} />
         </Routes>
         <Footer />
       </Router>
