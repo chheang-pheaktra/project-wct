@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { collection, deleteDoc, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
-import { db } from '../firebaseStor';
 import {AuthContext} from '../Context/AuthContext'
+import { db } from '../firebaseCofig';
 const Resturant = () => {
     const [name,setName]=useState(' ');
     const [price,setPrice]=useState(' ');
