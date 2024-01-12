@@ -5,24 +5,18 @@ import { db } from '../firebaseCofig';
 
 const Food = () => {
     const { currentUser } = useContext(AuthContext);
-    if(!currentUser){
-
-    }
-    const userID = currentUser.uid;
+    const userID = currentUser ? currentUser.uid : null; // Set userID to null if there is no current user
     const [data, setData] = useState([]);
     const [orders, setOrders] = useState([]);
     const [orderInfo, setOrderInfo] = useState({
         Number: " ",
         name: " ",
         quantity: 0,
-        // Default quantity
     });
 
     const handleAddToOrder = async (selectedItem) => {
-        console.log(selectedItem);
         try {
-           if(!currentUser){
-             // Add the selected item and additional order information to the orders collection
+            if (userID) {
                 const orderRef = await addDoc(collection(db, "Cart"), {
                     userId: userID,
                     item: selectedItem,
@@ -30,55 +24,34 @@ const Food = () => {
                     timestamp: new Date(),
                 });
                 setOrders([...orders, { id: orderRef.id, ...selectedItem, orderInfo: orderInfo }]);
-       
-           }
-           else{
-             // Add the selected item and additional order information to the orders collection
-             const orderRef = await addDoc(collection(db, "Cart"), {
-                userId: userID,
-                item: selectedItem,
-                orderInfo: orderInfo,
-                timestamp: new Date(),
-            });
-             setOrders([...orders, { id: orderRef.id, ...selectedItem, orderInfo: orderInfo }]);
-       
-           }
-
-            // Update the local state with the new order
+            } else {
+                // Handle the case when there is no current user
+                console.log("User not logged in. Unable to add to the order.");
+                // You may choose to redirect the user to the login page or show a message
+            }
         } catch (error) {
             console.error('Error adding order to Firestore: ', error);
         }
     }
 
     const handleInputChange = (e) => {
-        // Update the orderInfo state when the user inputs information
-       if(!currentUser){
         setOrderInfo({
             ...orderInfo,
             [e.target.name]: e.target.value,
         });
-       }
-       else{
-        setOrderInfo({
-            ...orderInfo,
-            [e.target.name]: e.target.value,
-        });
-       }
     }
 
     const getData = async () => {
-       if(!currentUser){
         const q = query(collection(db, 'CRUD'), where('id', '==', userID));
         const dataDb = await getDocs(q)
 
         const allData = dataDb.docs.map(val => ({ ...val.data(), id: val.id }))
         setData(allData)
-       }
     }
 
     useEffect(() => {
         getData();
-    }, []);
+    }, [currentUser]);
 
     return (
         <div className="-z-40">
