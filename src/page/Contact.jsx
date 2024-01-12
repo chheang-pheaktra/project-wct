@@ -6,7 +6,9 @@ const Contact = () => {
     const sendEmail =(e)=>{
         e.preventDefault();
         emailjs.sendForm('service_kl50do8','template_h9bne58',form.current,'pHJyBpY2MAUnArn4E')
-        .then(res=>console.log("sent"))
+        .then(res=>{
+            alert("Send Succuessfully");
+        })
         .catch(Error=>console.log(Error))
     }
     return (
