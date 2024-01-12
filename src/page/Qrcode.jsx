@@ -47,6 +47,7 @@ const QrCodeGenerator = () => {
           id="inputLink"
           value={inputLink}
           onChange={handleInputChange}
+          placeholder='input link your website'
           className="w-1/2 outline-none bg-transparent min-h-full"
         />
         <button onClick={generateQrCode} className="bg-blue-500 text-white hover:bg-blue-900  py-4 px-3 rounded-r-lg">Download QR Code</button>
