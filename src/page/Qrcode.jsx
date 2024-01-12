@@ -1,68 +1,61 @@
-import { QRCodeCanvas } from 'qrcode.react';
-import { useState, useRef, useContext } from "react";
-import { AuthContext } from '../Context/AuthContext';
+import React, { useState, useRef } from 'react';
+import QRCode from 'qrcode.react';
 
-const Qrcode = () => {
-  const { currentUser } = useContext(AuthContext); // Fix the variable name here
-  const [url, setUrl] = useState("");
-  const qrRef = useRef();
+const QrCodeGenerator = () => {
+  const [inputLink, setInputLink] = useState('');
+  const qrCodeRef = useRef(null);
 
-  const downloadQRCode = (e) => {
-    e.preventDefault();
-    let canvas = qrRef.current.querySelector("canvas");
-    let image = canvas.toDataURL("image/png");
-    let anchor = document.createElement("a");
-    anchor.href = image;
-    anchor.download = `qr-code.png`;
-    document.body.appendChild(anchor);
-    anchor.click();
-    document.body.removeChild(anchor);
-    setUrl("");
+  const handleInputChange = (e) => {
+    setInputLink(e.target.value);
   };
 
-  const qrCodeEncoder = (e) => {
-    setUrl(e.target.value);
-  };
+  const generateQrCode = () => {
+    // You can add validation or modify inputLink as needed
+    if (inputLink.trim() === '') {
+      alert('Please enter a valid link.');
+      return;
+    }
 
-  const qrcode = (
-    <QRCodeCanvas
-      id="qrCode"
-      value={url}
-      size={300}
-      bgColor={"#ffff"}
-      level={"H"}
-    />
-  );
+
+    // Update the QR code
+    const canvas = qrCodeRef.current.querySelector('canvas');
+    if (canvas) {
+      canvas.toBlob((blob) => {
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'qrcode.png';
+        link.click();
+      });
+    }
+  };
 
   return (
-    <section className="mx-auto mt-5">
-      <h1 className="text-center mt-4 text-4xl font-semibold mb-5">Generate Your QR</h1>
-      <div className="qrcode__container">
-        <div className="flex justify-center align-middle">
-          <div className="" ref={qrRef}>
-            {qrcode}
-          </div>
-        </div>
-        <div className="input__group text-center pt-4">
-          <form onSubmit={downloadQRCode}>
-            <div className="xl:w-1/2 mx-auto">
-              <label className="">Enter URL</label>
-              <input
-                className="p-4 outline-none mx-5"
-                type="text"
-                value={url}
-                onChange={qrCodeEncoder}
-                placeholder="https://hackernoon.com"
-              />
-            </div>
-            <button type="submit" disabled={!url} className="bg-blue-600 p-3 rounded-lg text-white mt-5 mb-5">
-              Download QR code
-            </button>
-          </form>
-        </div>
+    <div className="text-center w-11/12 mx-auto mt-5">
+      <h2 className="text-4xl font-bold">QR Code Generator & Download</h2>
+      <div className="mt-5 flex justify-between border w-1/2 mx-auto p-4 ">
+        <label htmlFor="inputLink " className="item-center py-4 px-3">Enter link:</label>
+        <input
+          type="text"
+          id="inputLink"
+          value={inputLink}
+          onChange={handleInputChange}
+          className="w-1/2 outline-none bg-transparent min-h-full"
+        />
+        <button onClick={generateQrCode} className="bg-blue-500 text-white hover:bg-blue-900  py-4 px-3 rounded-r-lg">Download QR Code</button>
       </div>
-    </section>
+
+      <div ref={qrCodeRef} className=" w-1/2 mx-auto">
+        {inputLink && (
+          <div className="1/2 mx-auto mt-5 font-semibold text-3xl">
+            <p className="w-1/2 mx-auto text-center">Generated QR code:</p>
+              <div className="w-1/2 px-24 mt-5 mx-auto">
+                 <QRCode  value={inputLink} />
+              </div>
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
 
-export default Qrcode;
+export default QrCodeGenerator;

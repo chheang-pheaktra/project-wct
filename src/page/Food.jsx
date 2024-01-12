@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
 import { AuthContext } from '../Context/AuthContext';
 import { db } from '../firebaseCofig';
-import { useParams } from 'react-router-dom';
 
 const Food = () => {
     const { currentUser } = useContext(AuthContext);
@@ -13,7 +12,8 @@ const Food = () => {
         // Define properties for the order information (e.g., name, address, quantity, etc.)
         Number: " ",
         name: " ",
-        quantity: 1, // Default quantity
+        quantity: 0,
+        // Default quantity
     });
 
     const handleAddToOrder = async (selectedItem) => {
