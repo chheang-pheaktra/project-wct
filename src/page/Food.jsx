@@ -2,22 +2,24 @@ import React, { useContext, useEffect, useState } from 'react';
 import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
 import { AuthContext } from '../Context/AuthContext';
 import { db } from '../firebaseCofig';
-import { all } from 'axios';
 
 const Food = () => {
     const { currentUser } = useContext(AuthContext);
-    const userID = currentUser ? currentUser.uid : null; // Set userID to null if there is no current user
+    const userID = currentUser.uid;
     const [data, setData] = useState([]);
     const [orders, setOrders] = useState([]);
     const [orderInfo, setOrderInfo] = useState({
         Number: " ",
         name: " ",
         quantity: 0,
-    });
+        // Default quantity
+    });z
 
     const handleAddToOrder = async (selectedItem) => {
+        console.log(selectedItem);
         try {
-            if (userID) {
+           
+             // Add the selected item and additional order information to the orders collection
                 const orderRef = await addDoc(collection(db, "Cart"), {
                     userId: userID,
                     item: selectedItem,
@@ -25,67 +27,36 @@ const Food = () => {
                     timestamp: new Date(),
                 });
                 setOrders([...orders, { id: orderRef.id, ...selectedItem, orderInfo: orderInfo }]);
-            } else {
-                // Handle the case when there is no current user
-                const orderRef = await addDoc(collection(db, "Cart"), {
-                    userId: userID,
-                    item: selectedItem,
-                    orderInfo: orderInfo,
-                    timestamp: new Date(),
-                });
-                setOrders([...orders, { id: orderRef.id, ...selectedItem, orderInfo: orderInfo }]);
-                console.log("User not logged in. Unable to add to the order.");
-                // You may choose to redirect the user to the login page or show a message
-            }
+       
+           
+
+            // Update the local state with the new order
         } catch (error) {
-            const orderRef = await addDoc(collection(db, "Cart"), {
-                userId: userID,
-                item: selectedItem,
-                orderInfo: orderInfo,
-                timestamp: new Date(),
-            });
-            setOrders([...orders, { id: orderRef.id, ...selectedItem, orderInfo: orderInfo }]);
             console.error('Error adding order to Firestore: ', error);
         }
     }
 
     const handleInputChange = (e) => {
-       if(userID){
+        // Update the orderInfo state when the user inputs information
+       
         setOrderInfo({
             ...orderInfo,
             [e.target.name]: e.target.value,
         });
-       }
-       else{
-        setOrderInfo({
-            ...orderInfo,
-            [e.target.name]: e.target.value,
-        });
-       }
+       
     }
 
     const getData = async () => {
-        
-            if (userID ) {
-                const q = query(collection(db, 'CRUD'), where('id', '==', userID));
-                const dataDb = await getDocs(q);
-                const allData = dataDb.docs.map(val => ({ ...val.data(), id: val.id }));
-                setData(allData);
-            } else {
+        const q = query(collection(db, 'CRUD'), where('id', '==', userID));
+        const dataDb = await getDocs(q)
 
-                // Handle the case when there is no current user
-              const q = query(collection(db, 'CRUD'));
-                const dataDb = await getDocs(q);
-                const allData = dataDb.docs.map(val => ({ ...val.data(), id: val.id }));
-                setData(allData);
-                // You may choose to show a message, redirect the user, or handle it in any way you prefer
-            }
-       
+        const allData = dataDb.docs.map(val => ({ ...val.data(), id: val.id }))
+        setData(allData)
     }
-    
+
     useEffect(() => {
-            getData();
-    }, [userID]);
+        getData();
+    }, [currentUser]);
 
     return (
         <div className="-z-40">
