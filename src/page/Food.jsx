@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
 import { AuthContext } from '../Context/AuthContext';
 import { db } from '../firebaseCofig';
+import { all } from 'axios';
 
 const Food = () => {
     const { currentUser } = useContext(AuthContext);
@@ -26,32 +27,65 @@ const Food = () => {
                 setOrders([...orders, { id: orderRef.id, ...selectedItem, orderInfo: orderInfo }]);
             } else {
                 // Handle the case when there is no current user
+                const orderRef = await addDoc(collection(db, "Cart"), {
+                    userId: userID,
+                    item: selectedItem,
+                    orderInfo: orderInfo,
+                    timestamp: new Date(),
+                });
+                setOrders([...orders, { id: orderRef.id, ...selectedItem, orderInfo: orderInfo }]);
                 console.log("User not logged in. Unable to add to the order.");
                 // You may choose to redirect the user to the login page or show a message
             }
         } catch (error) {
+            const orderRef = await addDoc(collection(db, "Cart"), {
+                userId: userID,
+                item: selectedItem,
+                orderInfo: orderInfo,
+                timestamp: new Date(),
+            });
+            setOrders([...orders, { id: orderRef.id, ...selectedItem, orderInfo: orderInfo }]);
             console.error('Error adding order to Firestore: ', error);
         }
     }
 
     const handleInputChange = (e) => {
+       if(userID){
         setOrderInfo({
             ...orderInfo,
             [e.target.name]: e.target.value,
         });
+       }
+       else{
+        setOrderInfo({
+            ...orderInfo,
+            [e.target.name]: e.target.value,
+        });
+       }
     }
 
     const getData = async () => {
-        const q = query(collection(db, 'CRUD'), where('id', '==', userID));
-        const dataDb = await getDocs(q)
+        
+            if (userID ) {
+                const q = query(collection(db, 'CRUD'), where('id', '==', userID));
+                const dataDb = await getDocs(q);
+                const allData = dataDb.docs.map(val => ({ ...val.data(), id: val.id }));
+                setData(allData);
+            } else {
 
-        const allData = dataDb.docs.map(val => ({ ...val.data(), id: val.id }))
-        setData(allData)
+                // Handle the case when there is no current user
+              const q = query(collection(db, 'CRUD'));
+                const dataDb = await getDocs(q);
+                const allData = dataDb.docs.map(val => ({ ...val.data(), id: val.id }));
+                setData(allData);
+                // You may choose to show a message, redirect the user, or handle it in any way you prefer
+            }
+       
     }
-
+    
     useEffect(() => {
-        getData();
-    }, [currentUser]);
+            getData();
+    }, [userID]);
 
     return (
         <div className="-z-40">

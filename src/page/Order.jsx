@@ -5,13 +5,21 @@ import { db } from '../firebaseCofig';
 
 const Order = () => {
     const {currentUser}=useContext(AuthContext);
-    const userID=currentUser.uid;   
+    const userID=currentUser ? currentUser.uid:null;   
     const [order,setOrder]=useState([]);
     const getOrder=async()=>{
+       if(userID){
         const q=query(collection(db,"Cart"),where('userId','==',userID))
         const dataDb=await getDocs(q);
         const allData=dataDb.docs.map(val=>({...val.data(),id:val.id}))
         setOrder(allData)
+       }
+       else{
+        const q=query(collection(db,"Cart"))
+        const dataDb=await getDocs(q);
+        const allData=dataDb.docs.map(val=>({...val.data(),id:val.id}))
+        setOrder(allData)
+       }
     }
     const handleDelete=async(id)=>{
         const docRef = doc(db,'Cart',id);
