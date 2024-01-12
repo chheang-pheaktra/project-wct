@@ -1,56 +1,116 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
 import { AuthContext } from '../Context/AuthContext';
 import { db } from '../firebaseCofig';
-import { useParams } from 'react-router-dom';
-const Food = () => {
-    const {currentUser}=useContext(AuthContext);
-    console.log(currentUser);
-    const userID=currentUser.uid;
-    console.log(userID);
-    const [data,setData]=useState([]);
-    const handleAddToOrder=()=>{
 
+const Food = () => {
+    const { currentUser } = useContext(AuthContext);
+    const userID = currentUser.uid;
+    const [data, setData] = useState([]);
+    const [orders, setOrders] = useState([]);
+    const [orderInfo, setOrderInfo] = useState({
+        // Define properties for the order information (e.g., name, address, quantity, etc.)
+        Number: " ",
+        name: " ",
+        quantity: 0,
+        // Default quantity
+    });
+
+    const handleAddToOrder = async (selectedItem) => {
+        console.log(selectedItem);
+        try {
+            // Add the selected item and additional order information to the orders collection
+                const orderRef = await addDoc(collection(db, "Cart"), {
+                    userId: userID,
+                    item: selectedItem,
+                    orderInfo: orderInfo,
+                    timestamp: new Date(),
+                });
+                 setOrders([...orders, { id: orderRef.id, ...selectedItem, orderInfo: orderInfo }]);
+           
+
+            // Update the local state with the new order
+        } catch (error) {
+            console.error('Error adding order to Firestore: ', error);
+        }
     }
-    const getData = async () =>{
-        const q=query(collection(db,'CRUD'),where('id','==',userID))
+
+    const handleInputChange = (e) => {
+        // Update the orderInfo state when the user inputs information
+        setOrderInfo({
+            ...orderInfo,
+            [e.target.name]: e.target.value,
+        });
+    }
+
+    const getData = async () => {
+        const q = query(collection(db, 'CRUD'), where('id', '==', userID));
         const dataDb = await getDocs(q)
 
-        const allData = dataDb.docs.map(val=>({...val.data(),id:val.id}))
+        const allData = dataDb.docs.map(val => ({ ...val.data(), id: val.id }))
         setData(allData)
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         getData();
-    },[currentUser])
-    console.log(data,'data');
+    }, [currentUser]);
+
     return (
-        <div>
-           <h1 className="text-2xl text-center font-bold mt-3">Enjoy Your Order</h1>
+        <div className="-z-40">
+            <h1 className="text-2xl text-center font-bold mt-3">Enjoy Your Order</h1>
             <div className="flex flex-wrap justify-center">
-            {
-                data.map(results=> 
-                    <div class="flex-shrink-0 m-6 relative overflow-hidden rounded-lg max-w-xs shadow-md -z-40">
-                        <svg class="absolute bottom-0 left-0 mb-8" viewBox="0 0 375 283" fill="none" transform='scle(1.5)'>
-                            <rect x="159.52" y="175" width="152" height="152" rx="8" transform="rotate(-45 159.52 175)" fill="white" />
-                            <rect y="107.48" width="152" height="152" rx="8" transform="rotate(-45 0 107.48)" fill="white" />
-                        </svg>
-                        <div class="relative pt-10 px-10 flex items-center justify-center">
-                            <img class="relative w-40 " src={results.imgUrl}/>
-                        </div>
-                        <div class="relative text-black px-6 pb-6 mt-6">
-                            <div class="flex justify-between">
-                                <span class="block font-semibold text-xl">{results.txtVal}</span>
-                                <span class=" bg-white rounded-full text-xs font-bold px-3 py-2 leading-none flex items-center">{results.txtPrice}</span>
+                {
+                    data.map(results =>
+                        <div key={results.id} className="flex-shrink-0 m-6 relative overflow-hidden rounded-lg max-w-xs shadow-md p-2">
+                            <div className="relative pt-10 px-10 flex items-center justify-center">
+                                <img className="relative w-40 " src={results.imgUrl} alt={results.txtVal} />
                             </div>
+                            <div className="relative text-black px-6 pb-6 mt-6">
+                                <div className="flex justify-between">
+                                    <span className="block font-semibold text-xl">{results.txtVal}</span>
+                                    <span className="bg-white rounded-full text-xl font-bold px-3 py-2 leading-none flex items-center">{results.txtPrice}</span>
+                                </div>
+                            </div>
+                            <div className="mb-4">
+                                {/* Additional input fields for user information */}
+                                <label htmlFor="name" className="block text-sm font-medium text-gray-700">Number</label>
+                                <input
+                                    type="text"
+                                    id="Number"
+                                    name="Number"
+                                    value={orderInfo.Number}
+                                    onChange={handleInputChange}
+                                    className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="address" className="block text-sm font-medium text-gray-700">Name</label>
+                                <input
+                                    type="text"
+                                    id="name"
+                                    name="name"
+                                    value={orderInfo.name}
+                                    onChange={handleInputChange}
+                                    className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="quantity" className="block text-sm font-medium text-gray-700">Quantity</label>
+                                <input
+                                    type="number"
+                                    id="quantity"
+                                    name="quantity"
+                                    value={orderInfo.quantity}
+                                    onChange={handleInputChange}
+                                    className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+                                />
+                            </div>
+                            <button onClick={() => handleAddToOrder(results)} className="bg-blue-500 p-2 text-center text-white w-full hover:bg-blue-900">
+                                Order
+                            </button>
                         </div>
-                        <div onClick={handleAddToOrder} className="bg-blue-500 p-2 ">
-                            <p className="text-center font-medium text-white">Order</p>
-                        </div>
-                    </div>   
-              
                     )
-            }
+                }
             </div>
         </div>
     );
