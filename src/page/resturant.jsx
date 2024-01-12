@@ -87,7 +87,7 @@ const Resturant = () => {
                         <h1 class="text-4xl font-bold mb-4">{currentUser?.displayName}</h1>
                         <h4 class="text-2xl  mb-4">{currentUser?.email}</h4>
                     <div class="mb-5 text-center flex justify-center items-center space-x-4">
-                        <Link to="/Food" href="#" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">View Food</Link>
+                        <Link to="/Food" onClick={currentUser} href="#" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">View Food</Link>
                         <Link to="/Order" href="#" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">View Order</Link>
                         <Link to="/Addfood" href="#" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">Add Food</Link>
                         <Link to="/Qrcode" href="#" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">QR Code</Link>

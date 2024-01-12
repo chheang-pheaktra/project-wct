@@ -32,18 +32,11 @@ export default function App() {
       <Router>
         <Header />
         <Routes>
-          <Route path="/">
-            <Route
-              index
-              element={
-                <Home/>
-              }
-            />
+            <Route path="/" index element={<Home/>}/>
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/contact" index element={<Contact/>}/>
             <Route path="/About" index element={<About/>}/>
-            </Route>
             <Route path="/resturant" index element={<Resturant/>}/>
             <Route path="/Food" index element={<Food/>}/>
             <Route path="/Qrcode" index element={<Qrcode/>}/>

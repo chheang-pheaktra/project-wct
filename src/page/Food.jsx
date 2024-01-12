@@ -5,11 +5,13 @@ import { db } from '../firebaseCofig';
 
 const Food = () => {
     const { currentUser } = useContext(AuthContext);
+    if(!currentUser){
+
+    }
     const userID = currentUser.uid;
     const [data, setData] = useState([]);
     const [orders, setOrders] = useState([]);
     const [orderInfo, setOrderInfo] = useState({
-        // Define properties for the order information (e.g., name, address, quantity, etc.)
         Number: " ",
         name: " ",
         quantity: 0,
@@ -19,15 +21,28 @@ const Food = () => {
     const handleAddToOrder = async (selectedItem) => {
         console.log(selectedItem);
         try {
-            // Add the selected item and additional order information to the orders collection
+           if(!currentUser){
+             // Add the selected item and additional order information to the orders collection
                 const orderRef = await addDoc(collection(db, "Cart"), {
                     userId: userID,
                     item: selectedItem,
                     orderInfo: orderInfo,
                     timestamp: new Date(),
                 });
-                 setOrders([...orders, { id: orderRef.id, ...selectedItem, orderInfo: orderInfo }]);
-           
+                setOrders([...orders, { id: orderRef.id, ...selectedItem, orderInfo: orderInfo }]);
+       
+           }
+           else{
+             // Add the selected item and additional order information to the orders collection
+             const orderRef = await addDoc(collection(db, "Cart"), {
+                userId: userID,
+                item: selectedItem,
+                orderInfo: orderInfo,
+                timestamp: new Date(),
+            });
+             setOrders([...orders, { id: orderRef.id, ...selectedItem, orderInfo: orderInfo }]);
+       
+           }
 
             // Update the local state with the new order
         } catch (error) {
@@ -37,23 +52,33 @@ const Food = () => {
 
     const handleInputChange = (e) => {
         // Update the orderInfo state when the user inputs information
+       if(!currentUser){
         setOrderInfo({
             ...orderInfo,
             [e.target.name]: e.target.value,
         });
+       }
+       else{
+        setOrderInfo({
+            ...orderInfo,
+            [e.target.name]: e.target.value,
+        });
+       }
     }
 
     const getData = async () => {
+       if(!currentUser){
         const q = query(collection(db, 'CRUD'), where('id', '==', userID));
         const dataDb = await getDocs(q)
 
         const allData = dataDb.docs.map(val => ({ ...val.data(), id: val.id }))
         setData(allData)
+       }
     }
 
     useEffect(() => {
         getData();
-    }, [currentUser]);
+    }, []);
 
     return (
         <div className="-z-40">

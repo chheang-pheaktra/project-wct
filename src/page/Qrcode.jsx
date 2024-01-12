@@ -1,9 +1,14 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef,useEffect } from 'react';
 import QRCode from 'qrcode.react';
-
+import { auth } from '../firebaseCofig';
 const QrCodeGenerator = () => {
   const [inputLink, setInputLink] = useState('');
+  const [currentUser, setCurrentUser] = useState(null);
   const qrCodeRef = useRef(null);
+  useEffect(() => {
+    // Set the current user
+    setCurrentUser(auth.currentUser);
+  }, [currentUser]);
 
   const handleInputChange = (e) => {
     setInputLink(e.target.value);
@@ -16,7 +21,10 @@ const QrCodeGenerator = () => {
       return;
     }
 
-
+    const qrCodeData = {
+      link: inputLink,
+      user: currentUser ? currentUser.uid : 'Guest', // Change this as needed
+    };
     // Update the QR code
     const canvas = qrCodeRef.current.querySelector('canvas');
     if (canvas) {
