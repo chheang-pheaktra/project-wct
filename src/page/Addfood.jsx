@@ -2,7 +2,7 @@
 import React, { useContext, useState } from 'react';
 import logo from '../assets/logo.jpg';
 import {getDownloadURL, ref, uploadBytes} from 'firebase/storage'
-import { db, storage } from '../firebaseStor';
+import { db, storage } from '../firebaseCofig';
 import {addDoc,collection} from 'firebase/firestore';
 import { v4 } from 'uuid';
 import { AuthContext } from '../Context/AuthContext';
@@ -22,14 +22,13 @@ const Addfood = () => {
        
     }
     const handleUpload=async()=>{
-        const dbref=collection(db,'CRUD');
         if(!currentUser){
-            console.error('Current user not available');
+            console.error('Current user not available');    
             return;
         }
         const userId=currentUser.uid;
         try{
-            await addDoc(dbref,{txtVal:name,txtPrice:price,imgUrl:img,id:userId})
+            await addDoc(collection(db,"CRUD"),{txtVal:name,txtPrice:price,imgUrl:img,id:userId})
             alert("Added");
 
         }catch(error){

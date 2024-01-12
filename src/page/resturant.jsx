@@ -1,13 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { collection, deleteDoc, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
-import { db } from '../firebaseStor';
 import {AuthContext} from '../Context/AuthContext'
+import { db, storage } from '../firebaseCofig';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 const Resturant = () => {
     const [name,setName]=useState(' ');
     const [price,setPrice]=useState(' ');
     const [img,setImg]=useState('');
     const [editItemId, setEditItemId] = useState(null);
+    const [file, setFile] = useState(null);
+    const [docRef, setDocRef] = useState(null);
     const {currentUser}=useContext(AuthContext);
     console.log(currentUser);
     const userID=currentUser.uid;
@@ -27,26 +30,56 @@ const Resturant = () => {
             await deleteDoc(docRef);
             setData((prevData)=>prevData.filter((item)=>item.id!==id));
     }
-    const handleEdit=async (id)=>{
-        setEditItemId(id);
-        const itemToEdit=data.find((item)=>item.id===id);
-        setName(itemToEdit.txtVal);
-        setPrice(itemToEdit.txtPrice);
-        setImg(itemToEdit.imgUrl)
-    }
-    const handSaveEdit=async ()=>{
-        const docRef =doc(db,'CRUD',editItemId);
-        await updateDoc(docRef,{
-            txtVal:name,
-            txtPrice:price,
-            imgUrl:img
-        });
-        setEditItemId(null);
-        getData();
-        setName('');
-        setPrice(' ');
-        setImg(' ');
-    }
+      const handleEdit = async (id) => {
+          setEditItemId(id);
+          const itemToEdit = data.find((item) => item.id === id);
+          setName(itemToEdit.txtVal);
+          setPrice(itemToEdit.txtPrice);
+          setImg(itemToEdit.imgUrl);
+        };
+      const handleFileChange = (e) => {
+        // Set the selected file to the state
+        setFile(e.target.files[0]);
+      };
+      const handSaveEdit = async () => {
+        try {
+          if (docRef && file) {
+            const storageRef = ref(storage, `images/${file.name}`);
+            const uploadTask = uploadBytes(storageRef, file);
+      
+            uploadTask.on(
+              "state_changed",
+              (snapshot) => {
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                console.log(`Upload is ${progress}% done`);
+              },
+              (error) => {
+                console.error(error.message);
+              },
+              async () => {
+                const url = await getDownloadURL(storageRef);
+                await updateDoc(docRef, {
+                  txtVal: name,
+                  txtPrice: price,
+                  imgUrl: url,
+                });
+                setEditItemId(null);
+                getData();
+                setName("");
+                setPrice("");
+                setImg("");
+                setFile(null);
+              }
+            );
+          } else {
+            console.error("docRef or file is not defined.");
+          }
+        } catch (error) {
+          console.error("Error in handSaveEdit:", error.message);
+        }
+      };
+      
+      
     return (
         <section>
             <div class="flex flex-col justify-center items-center mt-5">
@@ -105,7 +138,7 @@ const Resturant = () => {
                             <label>Image:</label>
                         </div>
                         <div className="w-full">
-                            <input className="w-full outline-none mx-2" type="text" value={img} onChange={(e) => setImg(e.target.value)} />
+                            <input type="file" className="w-full outline-none mx-2"  onChange={handleFileChange} />
                         </div>
                       </div>
                      <div className=" ">
