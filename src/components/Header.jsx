@@ -5,7 +5,7 @@ import Auth from './Auth';
 
 const Header = () => {
     return (
-        <header className="sticky top-0 bg-white shadow text-blue-600">
+        <header className="sticky top-0 bg-white shadow text-blue-600 z-40">
             <div className="container flex flex-col sm:flex-row justify-between items-center mx-auto py-4 px-8">
                 <Link to="/">
                     <div class="flex items-center text-2xl">
