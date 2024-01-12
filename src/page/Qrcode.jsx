@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import QRCode from 'qrcode.react';
-
 const QrCodeGenerator = () => {
   const [inputLink, setInputLink] = useState('');
   const qrCodeRef = useRef(null);
