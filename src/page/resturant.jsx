@@ -9,8 +9,8 @@ const Resturant = () => {
     const [price,setPrice]=useState(' ');
     const [img,setImg]=useState('');
     const [editItemId, setEditItemId] = useState(null);
+    const [docRef,setDocRef]=useState('')
     const [file, setFile] = useState(null);
-    const [docRef, setDocRef] = useState(null);
     const {currentUser}=useContext(AuthContext);
     console.log(currentUser);
     const userID=currentUser.uid;
@@ -30,13 +30,15 @@ const Resturant = () => {
             await deleteDoc(docRef);
             setData((prevData)=>prevData.filter((item)=>item.id!==id));
     }
-      const handleEdit = async (id) => {
-          setEditItemId(id);
-          const itemToEdit = data.find((item) => item.id === id);
-          setName(itemToEdit.txtVal);
-          setPrice(itemToEdit.txtPrice);
-          setImg(itemToEdit.imgUrl);
-        };
+    const handleEdit = async (id) => {
+      setEditItemId(id);
+      const itemToEdit = data.find((item) => item.id === id);
+      setName(itemToEdit.txtVal);
+      setPrice(itemToEdit.txtPrice);
+      setImg(itemToEdit.imgUrl);
+      setDocRef(doc(db, 'CRUD', id)); // Set the docRef here
+    };
+    
       const handleFileChange = (e) => {
         // Set the selected file to the state
         setFile(e.target.files[0]);
