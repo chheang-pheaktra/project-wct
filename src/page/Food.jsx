@@ -24,6 +24,8 @@ const Food = () => {
                     timestamp: new Date(),
                 });
                 setOrders([...orders, { id: orderRef.id, ...selectedItem, orderInfo: orderInfo }]);
+                alert("Order Successfilly")
+                
             } else {
                 const orderRef = await addDoc(collection(db, "Cart"), {
                     userId: userID,
